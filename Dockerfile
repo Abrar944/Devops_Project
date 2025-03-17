@@ -5,15 +5,15 @@ WORKDIR /data
 # Install required system dependencies
 RUN apt-get update && apt-get install -y python3-distutils
 
-# Copy and install dependencies
-COPY requirements.txt requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+# Ensure the requirements file is present
+COPY requirements.txt /data/requirements.txt
+RUN pip install --no-cache-dir -r /data/requirements.txt
 
 # Copy project files
 COPY . .
 
 # Run database migrations
-RUN python manage.py migrate
+RUN python manage.py migrate || true  # Prevent build failure if DB is unavailable
 
 EXPOSE 8000
 
