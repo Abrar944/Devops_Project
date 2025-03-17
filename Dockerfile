@@ -1,4 +1,4 @@
-FROM python:3.10  # Use a stable Python version
+FROM python:3.10
 
 WORKDIR /data
 
@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y python3-distutils
 COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy project files after dependencies are installed
+# Copy project files
 COPY . .
 
 # Run database migrations
